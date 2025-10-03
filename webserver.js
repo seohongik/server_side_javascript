@@ -15,21 +15,22 @@ server.listen(port, hostname, () => {
 
 import { createServer } from "node:http";
 import userController from "./controller/userController.js";
-import url from "url";
 const hostname = '127.0.0.1';
 const port = 3000;
 const server =createServer((req, res) => {
     res.statusCode = 200;
-    const parsedUrl = url.parse(req.url, true); // url 파싱
-    const path = parsedUrl.pathname;
     const reqMethod =req.method;
-    if (path === '/user'&&reqMethod.toUpperCase()==="GET") {
-        userController.getUser(req,res);
-        userController.createUser(req,res);
+    const myURL = new URL(req.url, `http://${req.headers.host}`);
+    const querystring = Object.fromEntries(myURL.searchParams) || { name: "null" };
+    if (myURL.pathname === '/user'&&reqMethod.toUpperCase()==="GET") {
+        userController.getUser(req, res, querystring);
+        //userController.createUser(req,res); 유알엘 분리 동시에 처리하면 크랙나서 서버 죽음
+    }else if (myURL.pathname === '/user' && reqMethod.toUpperCase() === "POST") {
+        userController.createUser(req, res);
     }else {
         res.statusCode=200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end("Hello Node");
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(querystring));
     }
 });
 server.listen(port, hostname, () => {
