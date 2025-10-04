@@ -127,6 +127,7 @@ app.get('/form', (req, res) => {
 // ✅ [2] POST 처리
 app.post('/submit', (req, res) => {
     const { name, message } = req.body;
+    console.log(req.body)
     console.log('폼 데이터:', name, message);
     // 데이터 처리 후 Redirect (PRG 핵심)
     res.redirect(`/success?name=${encodeURIComponent(name)}`);

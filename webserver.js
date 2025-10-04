@@ -11,8 +11,6 @@ server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
     // hello node.js
 });*/
-
-
 import { createServer } from "node:http";
 import userController from "./controller/userController.js";
 const hostname = '127.0.0.1';
