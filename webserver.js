@@ -22,6 +22,7 @@ const server =createServer((req, res) => {
     const reqMethod =req.method;
     const myURL = new URL(req.url, `http://${req.headers.host}`);
     const querystring = Object.fromEntries(myURL.searchParams) || { name: "null" };
+
     if (myURL.pathname === '/user'&&reqMethod.toUpperCase()==="GET") {
         userController.getUser(req, res, querystring);
         //userController.createUser(req,res); 유알엘 분리 동시에 처리하면 크랙나서 서버 죽음
