@@ -19,14 +19,19 @@ app.get('/VO',function (req,res){
     res.status(200);
     res.setHeader('Content-Type', 'application/json');
     const loginVO = new LoginVO();
+    const list =[];
     loginVO.setName("seo hong ik")
     loginVO.setAge(400);
+    list.push(loginVO) // 이거는 참조 값 복사함 // 그래서 마지막 걸로 없어 침
+    //list.push(JSON.parse(JSON.stringify(loginVO))); // 엎어 치는거 방법 1 => 깊은 복사 나머지는 블로그에 정리
     console.log(loginVO);
+    loginVO.setName("another");
+    loginVO.setAge(10);
+    list.push(loginVO); // 이거는 찹조 값 복사함 그래서 마지막 걸로 없어 침
+    //list.push(JSON.parse(JSON.stringify(loginVO))); // 없어치는 없애는 방법 => 깊은 복사 나머지는 블로그에 정리
+    console.log(loginVO); // [{"name":"another","age":10},{"name":"another","age":10}] 개발할 때 이거 중요하다 .. 주소값 생각하면서 개발해야함 차라리 생성자로 new 개속해
 
-    loginVO.setName("another")
-    console.log(loginVO);
-
-    res.send(JSON.stringify(loginVO));
+    res.send(JSON.stringify(list));
 });
 
 app.listen(port,function (){
