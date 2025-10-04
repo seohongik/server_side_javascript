@@ -1,5 +1,6 @@
 const express=require('express');
 const app = express();
+app.use(express.static('public')); // 정적파일 로드
 const port = 3000;
 
 app.get('/',function (req,res){
@@ -32,6 +33,10 @@ app.get('/VO',function (req,res){
     //console.log(loginVO); // [{"name":"another","age":10},{"name":"another","age":10}] 개발할 때 이거 중요하다 .. 주소값 없어친다
     console.log(loginVO); // [{"name":"another","age":10},{"name":"another","age":10}] 개발할 때 이거 중요하다 .. 주소값 없어친다 이거 방시하려면 위코드처럼 불변객체 반환 또는 new 생성자 계속 해야함 그래도 딥다이브 자바스크립트 코어자바스크립트 읽어놔서 다행
     res.send(JSON.stringify(list));
+});
+
+app.get("/rosie",function (req,res){
+    res.send('Hello Rosie,<img src="/ROSIE.png">');
 });
 
 app.listen(port,function (){
