@@ -29,8 +29,8 @@ app.get('/VO',function (req,res){
     loginVO.setAge(10);
     //list.push(loginVO); // 이거는 찹조 값 복사함 그래서 마지막 걸로 없어 침
     list.push(JSON.parse(JSON.stringify(loginVO))); // 없어치는 없애는 방법 => 깊은 복사 나머지는 블로그에 정리
-    console.log(loginVO); // [{"name":"another","age":10},{"name":"another","age":10}] 개발할 때 이거 중요하다 .. 주소값 생각하면서 개발해야함 차라리 생성자로 new 개속해
-
+    //console.log(loginVO); // [{"name":"another","age":10},{"name":"another","age":10}] 개발할 때 이거 중요하다 .. 주소값 없어친다
+    console.log(loginVO); // [{"name":"another","age":10},{"name":"another","age":10}] 개발할 때 이거 중요하다 .. 주소값 없어친다 이거 방시하려면 위코드처럼 불변객체 반환 또는 new 생성자 계속 해야함 그래도 딥다이브 자바스크립트 코어자바스크립트 읽어놔서 다행
     res.send(JSON.stringify(list));
 });
 
