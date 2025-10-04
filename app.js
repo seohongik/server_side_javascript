@@ -79,9 +79,19 @@ app.get("/topic",function (req, res) {
     console.log(map.id); //2
     //res.send(map);
     // 위코드는 그냥 검증 후 entity에 널때 사용 하자
-
-
     res.send(req.query.id);
+});
+
+app.get("/topic2",function (req, res) {
+    const topics =[
+        'Javascript ...'
+        ,'Node.js...'
+        ,'Java...'
+        ,'Spring...'
+        ,'없음'
+    ]
+    const showId =req.query.id<topics.length-1?req.query.id : 4;
+    res.send(topics[showId]);
 });
 
 
