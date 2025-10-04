@@ -1,4 +1,6 @@
 const express=require('express');
+const url = require("node:url");
+const {object} = require("underscore");
 const app = express();
 app.use(express.static('public')); // 정적파일 로드
 const port = 3000;
@@ -36,7 +38,7 @@ app.get('/VO',function (req,res){
 });
 
 app.get("/rosie",function (req,res){
-    res.send('Hello Rosie,<img src="/ROSIE.png">');
+    res.send('Hello Rosie ,<img src="/ROSIE.png">');
 });
 
 app.listen(port,function (){
@@ -66,6 +68,22 @@ app.get("/html-dynamic",function (req,res){
         </html>`
     res.send(output);
 });
+
+app.get("/topic",function (req, res) {
+    console.dir(req.url) // /topic?id=2
+    const myURL = new URL(req.url, `http://${req.headers.host}`);
+    const queryString = myURL.searchParams;
+    console.log(queryString) //URLSearchParams { 'id' => '2' }
+    const map = Object.fromEntries(queryString);
+    console.log(map); //{ id: '2' }
+    console.log(map.id); //2
+    //res.send(map);
+    // 위코드는 그냥 검증 후 entity에 널때 사용 하자
+
+
+    res.send(req.query.id);
+});
+
 
 class LoginVO{
     /*constructor(name,age) {
