@@ -1,7 +1,6 @@
 const _underscore=require('underscore');
 
 const arr=[3,6,9,1,10];
-
 console.log(_underscore.first(arr));
 console.log(_underscore.last(arr));
 console.log(_underscore.indexOf(arr,6));
