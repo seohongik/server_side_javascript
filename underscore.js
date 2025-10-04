@@ -16,4 +16,4 @@ arr.sort(function (a,b){return b-a;});
 console.log(arr);// [10,9,6,3,1]
 
 arr.sort(function (a,b){return a-b;});
-console.log(arr); //[1,3,6,9,10]
+console.log(arr);// [1,3,6,9,10]
