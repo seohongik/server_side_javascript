@@ -43,6 +43,30 @@ app.listen(port,function (){
     console.log('Connected ',port);
 });
 
+app.get("/html-dynamic",function (req,res){
+
+    // 서버 쪽 에서 하는 방법 권장 하지 않음
+    let lis = "";
+    for (let i=0; i<5; i++){
+        lis += `<li> coding ${i+1} </li>`;
+    }
+    const output = `<!doctype html>
+        <html lang="ko">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>html</title>
+        </head>
+        <body>
+            Hello, Dynamic!
+            <ul>
+            ${lis}
+            </ul>
+        </body>
+        </html>`
+    res.send(output);
+});
+
 class LoginVO{
     /*constructor(name,age) {
         this.name=name;
