@@ -12,8 +12,8 @@ console.log(_underscore.first(obj));
 arr.sort();
 console.log(arr);// [1, 10 , 3, 6, 9];
 
-arr.sort(function (a,b){return b-a}); // [10,9,6,3,1]
-console.log(arr);
+arr.sort(function (a,b){return b-a;});
+console.log(arr);// [10,9,6,3,1]
 
-arr.sort(function (a,b){return a-b});
+arr.sort(function (a,b){return a-b;});
 console.log(arr); //[1,3,6,9,10]
