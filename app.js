@@ -102,7 +102,7 @@ app.get('/pathVariable-query/:id', (req, res) => {
 });
 
 /*** 이거 필수로 붙혀야 폼데이터 파싱 가능*/
-app.use(express.json()); // JSON 요청 파싱
+app.use(express.json()); // JSON 요청 파싱 // body-parser 설치해서 사용해도 됨
 app.use(express.urlencoded({ extended: true })); // 폼 요청 파싱
 
 // ✅ [1] 폼 페이지
