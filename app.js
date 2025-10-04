@@ -1,6 +1,4 @@
 const express=require('express');
-const url = require("node:url");
-const {object} = require("underscore");
 const app = express();
 app.use(express.static('public')); // 정적파일 로드
 const port = 3000;
@@ -39,10 +37,6 @@ app.get('/VO',function (req,res){
 
 app.get("/rosie",function (req,res){
     res.send('Hello Rosie ,<img src="/ROSIE.png">');
-});
-
-app.listen(port,function (){
-    console.log('Connected ',port);
 });
 
 app.get("/html-dynamic",function (req,res){
@@ -107,14 +101,45 @@ app.get('/pathVariable-query/:id', (req, res) => {
     res.send(`상품ID: ${productId}, 카테고리: ${category}`);
 });
 
-// 숫자만 허용
-app.get('/order/:id(\\d+)', (req, res) => {
-    res.send(`Order ID: ${req.params.id}`);
+/*** 이거 필수로 붙혀야 폼데이터 파싱 가능*/
+app.use(express.json()); // JSON 요청 파싱
+app.use(express.urlencoded({ extended: true })); // 폼 요청 파싱
+
+// ✅ [1] 폼 페이지
+app.get('/form', (req, res) => {
+
+    const html =`<!DOCTYPE html>
+                        <html lang="ko">
+                        <head><meta charset="UTF-8"><title>폼 제출</title></head>
+                        <body>
+                          <h1>PRG 패턴 예제</h1>
+                          <form action="/submit" method="POST">
+                            <input type="text" name="name" placeholder="이름 입력" required />
+                            <input type="text" name="message" placeholder="메시지 입력" required />
+                            <button type="submit">전송</button>
+                          </form>
+                        </body>
+                        </html>`;
+
+    res.send(html); // form.ejs
 });
 
-// 문자열만 허용
-app.get('/name/:name([a-zA-Z]+)', (req, res) => {
-    res.send(`Name: ${req.params.name}`);
+// ✅ [2] POST 처리
+app.post('/submit', (req, res) => {
+    const { name, message } = req.body;
+    console.log('폼 데이터:', name, message);
+    // 데이터 처리 후 Redirect (PRG 핵심)
+    res.redirect(`/success?name=${encodeURIComponent(name)}`);
+});
+
+// ✅ [3] GET 결과 페이지
+app.get('/success', (req, res) => {
+    const name = req.query.name;
+    res.send(`✅ ${name}님, 성공적으로 등록되었습니다!`);
+});
+
+app.listen(port,function (){
+    console.log('Connected ',port);
 });
 
 class LoginVO{
@@ -138,3 +163,4 @@ class LoginVO{
     }
 
 }
+
