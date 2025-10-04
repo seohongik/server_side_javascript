@@ -82,7 +82,7 @@ app.get("/topic",function (req, res) {
     res.send(req.query.id);
 });
 
-app.get("/topic2",function (req, res) {
+app.get("/topic-id",function (req, res) {
     const topics =[
         'Javascript ...'
         ,'Node.js...'
@@ -94,6 +94,28 @@ app.get("/topic2",function (req, res) {
     res.send(topics[showId]);
 });
 
+// pathVariable 사용하기
+app.get('/pathVariable/:id', (req, res) => {
+    const userId = req.params.id; // ← 경로 변수
+    res.send(`User ID: ${userId}`);
+});
+
+// pathVariable 사용하기 queryString 같이 사용
+app.get('/pathVariable-query/:id', (req, res) => {
+    const productId = req.params.id;       // path variable
+    const category = req.query.category ?? "";    // query string
+    res.send(`상품ID: ${productId}, 카테고리: ${category}`);
+});
+
+// 숫자만 허용
+app.get('/order/:id(\\d+)', (req, res) => {
+    res.send(`Order ID: ${req.params.id}`);
+});
+
+// 문자열만 허용
+app.get('/name/:name([a-zA-Z]+)', (req, res) => {
+    res.send(`Name: ${req.params.name}`);
+});
 
 class LoginVO{
     /*constructor(name,age) {
